@@ -41,11 +41,10 @@
 |:---:|:----:|
 |name|token|
 |password|
---- 
+
 > EXAMPLE Method _POST_
 >> http://base-url/v1/login/
->>> {"user": {"name":"test","password": "123"}}
----
+>>> ```{"user": {"name":"test","password": "123"}} ```
 
 - [x] **UploadFile API**
 
@@ -55,28 +54,39 @@
 |from_folder|file_id|
 |token||
 |file||
----
+
 > EXAMPLE Method _POST_
 >> http://base-url/v1/file/upload/1
->>> _Header_: Authorization Token token=token-you-got-when-logging-in <br> 
+>>> _header_: Authorization Token token=token-you-got-when-logging-in <br> 
 >>> file: binary-file <br>
 >>> filesize: file-size 
----
+
 ## TODOs
 
 - [ ] **UploadBigFile API**
 
 - [ ] **CreateFolder API** 
+
 - [ ] **EncryptFile API**
+
 - [ ] **EncryptFolder API**
+
 - [ ] **CopyFile API**
+
 - [ ] **MoveFile API**
+
 - [ ] **DeleteFile API**
+
 - [ ] **UpdateFile API**
+
 - [ ] **DeleteFolder API**
+
 - [ ] **UpdateFolder API**
+
 - [ ] **GetFilesByFolder API**
+
 - [ ] **ShareFile API**
+
 - [ ] **CancelSharing API**
 
 
