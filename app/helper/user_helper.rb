@@ -1,0 +1,3 @@
+class UserHelper
+
+end
