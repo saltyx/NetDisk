@@ -47,7 +47,7 @@
 >>> {"user": {"name":"test","password": "123"}}
 ---
 
--[x] **UploadFile API**
+- [x] **UploadFile API**
 
 |param|return|
 |:---:|:----:|
