@@ -37,6 +37,40 @@
 ## 进度
 - [x] **Login API**
 
+- [x] **UploadFile API**
+
+- [x] **UploadBigFile API** [_**not tested**_]
+
+- [x] **CreateFolder API** 
+
+- [x] **DeleteFolder API**
+
+- [x] **UpdateFolder API**
+
+- [x] **GetFilesByFolder API**
+
+- [x] **ShareFile API**
+
+- [x] **CancelSharing API**
+
+- [x] **CopyFile API**
+
+- [x] **MoveFile API**
+
+- [x] **DeleteFile API**
+
+- [x] **UpdateFile API**
+
+## TODOs
+
+- [ ] **EncryptFile API**
+
+- [ ] **EncryptFolder API**
+
+## Usage
+
+- **Login API**
+
 |param|return|
 |:---:|:----:|
 |name|token|
@@ -46,7 +80,7 @@
 >> http://base-url/v1/login/
 >>> ```{"user": {"name":"test","password": "123"}} ```
 
-- [x] **UploadFile API**
+- **UploadFile API**
 
 |param|return|
 |:---:|:----:|
@@ -61,32 +95,8 @@
 >>> file: binary-file <br>
 >>> filesize: file-size 
 
-## TODOs
 
-- [ ] **UploadBigFile API**
 
-- [ ] **CreateFolder API** 
 
-- [ ] **EncryptFile API**
-
-- [ ] **EncryptFolder API**
-
-- [ ] **CopyFile API**
-
-- [ ] **MoveFile API**
-
-- [ ] **DeleteFile API**
-
-- [ ] **UpdateFile API**
-
-- [ ] **DeleteFolder API**
-
-- [ ] **UpdateFolder API**
-
-- [ ] **GetFilesByFolder API**
-
-- [ ] **ShareFile API**
-
-- [ ] **CancelSharing API**
 
 

@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   def generate_token
     loop do
-      self.token= SecureRandom.base64(64)
+      self.token= SecureRandom.base64 64
       break if User.find_by_token(token).nil?
     end
   end

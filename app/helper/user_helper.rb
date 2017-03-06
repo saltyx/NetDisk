@@ -1,3 +1,3 @@
-class UserHelper
+module UserHelper
 
 end
