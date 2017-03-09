@@ -17,7 +17,7 @@ class V1::FolderController < V1::BaseController
     folder = UserFileHelper.get_folder_info(folder_id, current_user.id)
     return folder_not_exist if folder.nil?
     folder.destroy
-    response_status(200,'ok')
+    ok
   end
 
   def update
@@ -27,18 +27,43 @@ class V1::FolderController < V1::BaseController
     return folder_not_exist if folder.nil?
     folder.file_name = folder_name
     folder.save!
-    response_status(200, 'ok')
+    ok
   end
 
   def files_by_folder
     folder_id = get_files_params[:id]
     files = UserFileHelper.fetch_files_by_folder(folder_id, current_user.id)
-    return folder_not_exist if UserFileHelper.get_folder_info(folder_id, current_user.id).nil?
+    return folder_not_exist if files.nil?
     response_status(200, files.to_json)
   end
 
   def encrypt
+    folder_id = encrypt_folder_params[:folder_id].to_i
+    pass_phrase = encrypt_folder_params[:pass_phrase].to_s
+    user_id = current_user.id
+    files = UserFileHelper.fetch_files_by_folder(folder_id, user_id)
+    return folder_not_exist if files.nil?
+    result = []
+    files.each do |f|
+      code = UserFileHelper.encrypt_file(f.id, user_id, pass_phrase)
+      result.append f.id if code != 0
+    end
+    ok if result.blank?
+    response_status(401, result.to_json)
+  end
 
+  def decrypt
+    folder_id = encrypt_folder_params[:folder_id].to_i
+    pass_phrase = encrypt_folder_params[:pass_phrase].to_s
+    user_id = current_user.id
+    files = UserFileHelper.fetch_files_by_folder(folder_id, user_id)
+    return folder_not_exist if files.nil?
+    result = []
+    files.each do |f|
+      result.append(f.id) unless UserFileHelper.encrypt_file(f.id, user_id, pass_phrase)
+    end
+    ok if result.blank?
+    response_status(401, result.to_json)
   end
 
   private
@@ -53,6 +78,10 @@ class V1::FolderController < V1::BaseController
 
   def update_folder_params
     params.require(:folder).permit(:new_name,:folder_id)
+  end
+
+  def encrypt_folder_params
+    params.require(:folder).permit(:folder_id, :pass_phrase)
   end
 
   def get_files_params

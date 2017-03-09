@@ -1,3 +1,4 @@
+require 'digest/sha2'
 class V1::BaseController < ApplicationController
   include Pundit
   attr_accessor :current_user
@@ -29,6 +30,10 @@ class V1::BaseController < ApplicationController
     render json: {success: code, info: msg}
   end
 
+  def file_sha256(file)
+    Digest::SHA256.hexdigest(File.open(file, 'r'){|f| f.read})
+  end
+
   def not_enough_space
     error(401, 'not enough space')
   end
@@ -51,6 +56,14 @@ class V1::BaseController < ApplicationController
 
   def unsafe_status
     error(401, 'unsafe status')
+  end
+
+  def encrypt_error
+    error(401, 'an error occurred while encrypting the file')
+  end
+
+  def decrypt_error
+    error(401, 'an error occurred while decrypting the file')
   end
 
   def params_error
