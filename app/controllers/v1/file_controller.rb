@@ -4,7 +4,20 @@ class V1::FileController < V1::BaseController
   before_action :authenticate_user!
 
   def encrypt
+    id = encrypt_params[:id].to_i
+    pass_phrase = encrypt_params[:pass_phrase].to_s
 
+    code = UserFileHelper.encrypt_file(id, current_user.id, pass_phrase)
+    file_not_exist if code == -1
+    encrypt_error if code == -2
+    ok
+  end
+
+  def decrypt
+    id = encrypt_params[:id].to_i
+    pass_phrase = encrypt_params[:pass_phrase].to_s
+    return decrypt_error unless UserFileHelper.decrypt_file(id, current_user.id, pass_phrase)
+    ok
   end
 
   def copy
@@ -14,8 +27,10 @@ class V1::FileController < V1::BaseController
     return folder_not_exist if folder.nil?
     return not_enough_space if current_user.total_storage < file.file_size+current_user.used_storage
     UserFile.create(user_id: file.user_id, file_name: file.file_name, file_size: file.file_size,
-                    file_path: file.file_path, is_encrypted: false, is_shared: false,
+                    file_path: file.file_path, is_encrypted: false, is_shared: false,is_folder: false,
                     from_folder: folder.id)
+    current_user.used_storage = current_user.used_storage + file.file_size
+    current_user.save
     ok
   end
 
@@ -39,6 +54,8 @@ class V1::FileController < V1::BaseController
   def update
     file = UserFileHelper.get_the_file_by_id(update_params[:id], current_user.id)
     return file_not_exist if file.nil?
+    dir = File.dirname(file.file_path)
+    File.rename(file.file_path, dir.concat("\\#{file.file_name}"))
     file.file_name = update_params[:new_name].to_s
     file.save
     ok
@@ -76,6 +93,10 @@ class V1::FileController < V1::BaseController
 
   def copy_params
     params.require(:file).permit(:id, :dst_folder_id)
+  end
+
+  def encrypt_params
+    params.require(:file).permit(:id, :pass_phrase)
   end
 
   def share_params

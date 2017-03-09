@@ -117,6 +117,8 @@ class V1::UploadController < V1::BaseController
 
         if chunk_index == total_chunks
           #最后一片
+          current_user.used_storage = current_user.used_storage+file_size
+          current_user.save
           $redis.del key
         else
           $redis.set(key, chunk_index)

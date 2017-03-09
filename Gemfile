@@ -27,7 +27,6 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'active_model_serializers'
 gem 'pundit'
-
 #redis_store
 gem 'redis-rails', '~> 5.0', '>= 5.0.1'
 

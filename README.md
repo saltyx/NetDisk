@@ -39,7 +39,7 @@
 
 - [x] **UploadFile API**
 
-- [x] **UploadBigFile API** [_**not tested**_]
+- [x] **UploadBigFile API** [_**HAVE NOT TESTED**_]
 
 - [x] **CreateFolder API** 
 
@@ -61,11 +61,13 @@
 
 - [x] **UpdateFile API**
 
-## TODOs
+- [x] **EncryptFile API** [_**Algorithm: AES-256-CBC**_]
 
-- [ ] **EncryptFile API**
+- [x] **EncryptFolder API** [_**Algorithm: AES-256-CBC**_]
 
-- [ ] **EncryptFolder API**
+- [x] **DecryptFile API**
+
+- [x] **DecryptFile API**
 
 ## Usage
 
