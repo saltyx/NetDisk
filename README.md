@@ -33,6 +33,8 @@
 |8|is_encrypted|boolean|
 |9|download_link|string|
 |10|download_times|integer|
+|11|iv|string|
+|12|sha256|string|
 
 ## 进度
 - [x] **Login API**
