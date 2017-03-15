@@ -69,7 +69,7 @@
 
 - [x] **DecryptFile API**
 
-- [x] **DecryptFile API**
+- [x] **DecryptFolder API**
 
 ## Usage
 

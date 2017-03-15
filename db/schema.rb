@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170309131043) do
+ActiveRecord::Schema.define(version: 20170315075949) do
 
-  create_table "user_files", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "user_files", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "file_name"
-    t.float    "file_size",      limit: 24
+    t.float    "file_size"
     t.string   "file_path"
     t.boolean  "is_folder"
     t.integer  "from_folder"
@@ -23,13 +23,13 @@ ActiveRecord::Schema.define(version: 20170309131043) do
     t.boolean  "is_encrypted"
     t.string   "download_link"
     t.integer  "download_times"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "iv"
     t.string   "sha256"
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.string   "password"
@@ -37,11 +37,11 @@ ActiveRecord::Schema.define(version: 20170309131043) do
     t.string   "last_login_ip"
     t.datetime "last_login_time"
     t.string   "last_login_device"
-    t.float    "total_storage",     limit: 24
-    t.float    "used_storage",      limit: 24
+    t.float    "total_storage"
+    t.float    "used_storage"
     t.string   "password_digest"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "token"
   end
 

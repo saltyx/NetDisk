@@ -7,7 +7,7 @@ class V1::LoginController < V1::BaseController
 
     if !@user.nil? && @user.authenticate(login_params[:password])
       @user = User.update(@user.id, last_login_ip: request.remote_ip)
-      render :json => UsersSerializer.new(@user.id)
+      render :json => UsersSerializer.new(@user)
     else
       api_error(status: 401)
     end
