@@ -1,4 +1,4 @@
-require 'digest/sha2'
+
 class V1::BaseController < ApplicationController
   include Pundit
   attr_accessor :current_user
@@ -28,10 +28,6 @@ class V1::BaseController < ApplicationController
 
   def response_status(code, msg)
     render json: {success: code, info: msg}
-  end
-
-  def file_sha256(file)
-    Digest::SHA256.hexdigest(File.open(file, 'r'){|f| f.read})
   end
 
   def not_enough_space
