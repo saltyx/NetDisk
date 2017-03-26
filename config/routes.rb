@@ -15,9 +15,10 @@ Rails.application.routes.draw do
 
     post 'file/encrypt', to: 'file#encrypt'
     post 'file/decrypt', to: 'file#decrypt'
-    post 'file/copy', to: 'file#copy'
+    put 'file/copy', to: 'file#copy'
     delete 'file/delete',to: 'file#delete'
     put 'file/move', to: 'file#move'
+    put 'file/update', to: 'file#update'
     post 'file/share', to: 'file#share'
     post 'file/share/cancel', to: 'file#cancel_sharing'
 

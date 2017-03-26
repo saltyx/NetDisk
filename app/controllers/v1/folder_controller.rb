@@ -7,7 +7,7 @@ class V1::FolderController < V1::BaseController
     from_folder = create_folder_params[:from_folder].to_i
     return folder_exist if folder_exits?(folder_name, from_folder)
 
-    folder = UserFile.create(user_id: current_user.id, from_folder: from_folder,
+    folder = UserFile.create(user_id: current_user.id, from_folder: from_folder, file_size: 0,
                           is_folder: true, file_name: folder_name)
     response_status(200, folder.id)
   end
