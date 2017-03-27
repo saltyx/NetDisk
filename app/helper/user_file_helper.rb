@@ -25,7 +25,7 @@ module UserFileHelper
   end
 
   def self.get_the_file_by_id(file_id, user_id)
-    file = UserFile.where('user_id = ? and id = ? ', user_id, file_id)
+    file = UserFile.where('user_id = ? and id = ? and is_folder = false', user_id, file_id)
     return nil if file.nil? || file.blank?
     file.first!
   end

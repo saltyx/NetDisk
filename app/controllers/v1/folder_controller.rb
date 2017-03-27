@@ -45,10 +45,11 @@ class V1::FolderController < V1::BaseController
     return folder_not_exist if files.nil?
     result = []
     files.each do |f|
+      code = 0
       code = UserFileHelper.encrypt_file(f.id, user_id, pass_phrase)
       result.append f.id if code != 0
     end
-    ok if result.blank?
+    return ok if result.blank?
     response_status(401, result.to_json)
   end
 
@@ -62,7 +63,7 @@ class V1::FolderController < V1::BaseController
     files.each do |f|
       result.append(f.id) unless UserFileHelper.encrypt_file(f.id, user_id, pass_phrase)
     end
-    ok if result.blank?
+    return ok if result.blank?
     response_status(401, result.to_json)
   end
 

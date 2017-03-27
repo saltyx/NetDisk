@@ -15,6 +15,7 @@
 /disk/*
 /test
 /.idea
+
 config/secrets.yml
 # Ignore Byebug command history file.
 .byebug_history
