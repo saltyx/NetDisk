@@ -25,7 +25,7 @@ module UserFileHelper
   end
 
   def self.get_the_file_by_id(file_id, user_id)
-    file = UserFile.where('user_id = ? and id = ? and is_folder = false', user_id, file_id)
+    file = UserFile.where('user_id = ? and id = ? and is_folder = ?', user_id, file_id,false)
     return nil if file.nil? || file.blank?
     file.first!
   end
@@ -47,8 +47,24 @@ module UserFileHelper
     return -1 if file.nil?
     path = file.file_path
     iv = file.iv
-    return EncryptHelper.decrypt(path, iv, pass_phrase)
+    file.is_encrypted = false
+    result = EncryptHelper.decrypt(path, iv, pass_phrase)
+    if result
+      file.save
+    end
+    result
+  end
 
+  def self.encrypt_folder(folder_id, user_id)
+    folder = get_folder_info folder_id, user_id
+    folder.is_encrypted = true
+    folder.save
+  end
+
+  def self.decrypt_folder(folder_id, user_id)
+    folder = get_folder_info folder_id, user_id
+    folder.is_encrypted = false
+    folder.save
   end
 
 end

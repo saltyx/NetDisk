@@ -46,24 +46,39 @@ class V1::FolderController < V1::BaseController
     result = []
     files.each do |f|
       code = 0
-      code = UserFileHelper.encrypt_file(f.id, user_id, pass_phrase)
-      result.append f.id if code != 0
+      if f.is_folder
+
+      else
+        code = UserFileHelper.encrypt_file(f.id, user_id, pass_phrase)
+        result.append f.id if code != 0
+      end
+
     end
-    return ok if result.blank?
-    response_status(401, result.to_json)
+    if result.blank?
+      logger.info "################################"
+      UserFileHelper.encrypt_folder(folder_id, user_id)
+      ok
+    else
+      logger.info result.to_json
+      response_status(401, result.to_json)
+    end
   end
 
   def decrypt
     folder_id = encrypt_folder_params[:folder_id].to_i
     pass_phrase = encrypt_folder_params[:pass_phrase].to_s
     user_id = current_user.id
+    current_folder = UserFileHelper.get_folder_info(folder_id, user_id)
     files = UserFileHelper.fetch_files_by_folder(folder_id, user_id)
     return folder_not_exist if files.nil?
     result = []
     files.each do |f|
-      result.append(f.id) unless UserFileHelper.encrypt_file(f.id, user_id, pass_phrase)
+      result.append(f.id) unless UserFileHelper.decrypt_file(f.id, user_id, pass_phrase)
     end
-    return ok if result.blank?
+    if result.blank?
+      UserFileHelper.decrypt_folder(folder_id, user_id)
+      ok
+    end
     response_status(401, result.to_json)
   end
 
