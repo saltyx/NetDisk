@@ -77,6 +77,15 @@ class V1::FileController < V1::BaseController
     ok
   end
 
+  def get_the_file
+    file = UserFileHelper.get_the_file_by_id(params[:id], current_user.id)
+    if file.nil?
+      file_not_exist
+    else
+      send_file (file.file_path)
+    end
+  end
+
   private
 
   def update_params

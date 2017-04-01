@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     put 'file/update', to: 'file#update'
     post 'file/share', to: 'file#share'
     post 'file/share/cancel', to: 'file#cancel_sharing'
-
+    get 'file/:id', to: 'file#get_the_file'
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

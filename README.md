@@ -71,6 +71,8 @@
 
 - [x] **DecryptFolder API**
 
+- [x] **Personal Download API**
+
 ## Usage
 
 - **Login API**
