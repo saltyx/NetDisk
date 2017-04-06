@@ -53,10 +53,13 @@ class V1::FileController < V1::BaseController
 
   def update
     file = UserFileHelper.get_the_file_by_id(update_params[:id], current_user.id)
+    new_name = update_params[:new_name].to_s
     return file_not_exist if file.nil?
-    dir = File.dirname(file.file_path)
-    File.rename(file.file_path, dir.concat("\\#{file.file_name}"))
-    file.file_name = update_params[:new_name].to_s
+    dir = File.dirname(file.file_path).concat("/#{new_name}")
+    logger.info dir
+    File.rename(file.file_path, dir)
+    file.file_name = new_name
+    file.file_path = dir
     file.save
     ok
   end
