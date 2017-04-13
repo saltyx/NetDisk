@@ -78,8 +78,9 @@ class V1::FolderController < V1::BaseController
     if result.blank?
       UserFileHelper.decrypt_folder(folder_id, user_id)
       ok
+    else
+      response_status(401, result.to_json)
     end
-    response_status(401, result.to_json)
   end
 
   private

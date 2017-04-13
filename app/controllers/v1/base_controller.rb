@@ -23,7 +23,7 @@ class V1::BaseController < ApplicationController
   end
 
   def error(code, msg)
-    render json: {error: code, info: msg}
+    render json: {success: code, info: msg}
   end
 
   def response_status(code, msg)
